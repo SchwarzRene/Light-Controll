@@ -14,6 +14,7 @@
             background-color: #151843;
             overflow:hidden;
             touch-action: none;
+            transition: 2s;
         }
 
         .container {
@@ -171,8 +172,9 @@
             .timer-list {
                 position: absolute;
                 width: 40%;
-                top: 2.3%;
-                left:56%;
+                top: 21px;
+                margin: 0 auto;
+                left:55.8%;
             }
         } 
         
@@ -183,6 +185,7 @@
             justify-content: space-between;
             padding: 10px 0;
         }
+
         .timer-item:last-child {
             border-bottom: none;
         }
@@ -699,10 +702,6 @@
             left:-50px;
             top:-50px;
             }
-
-            .day #nightbg {
-                transform: scale(40);
-            }
         }
 
         .day .star {
@@ -1002,9 +1001,11 @@
 
 
             if (lightOn) {
+                document.body.style.backgroundColor = "lightblue";
                 toggleLightButton.classList.add('sun');
                 toggleLightButton.classList.remove('moon');
             } else {
+                document.body.style.backgroundColor = "#151843";
                 toggleLightButton.classList.add('moon');
                 toggleLightButton.classList.remove('sun');
             }

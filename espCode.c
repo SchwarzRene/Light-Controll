@@ -305,6 +305,7 @@ String getHTML(){
   ptr += "            background-color: #151843;\n";
   ptr += "            overflow:hidden;\n";
   ptr += "            touch-action: none;\n";
+  ptr += "            transition: 2s;\n";
   ptr += "        }\n";
   ptr += "\n";
   ptr += "        .container {\n";
@@ -462,8 +463,9 @@ String getHTML(){
   ptr += "            .timer-list {\n";
   ptr += "                position: absolute;\n";
   ptr += "                width: 40%;\n";
-  ptr += "                top: 2.3%;\n";
-  ptr += "                left:56%;\n";
+  ptr += "                top: 21px;\n";
+  ptr += "                margin: 0 auto;\n";
+  ptr += "                left:55.8%;\n";
   ptr += "            }\n";
   ptr += "        } \n";
   ptr += "        \n";
@@ -474,6 +476,7 @@ String getHTML(){
   ptr += "            justify-content: space-between;\n";
   ptr += "            padding: 10px 0;\n";
   ptr += "        }\n";
+  ptr += "\n";
   ptr += "        .timer-item:last-child {\n";
   ptr += "            border-bottom: none;\n";
   ptr += "        }\n";
@@ -990,10 +993,6 @@ String getHTML(){
   ptr += "            left:-50px;\n";
   ptr += "            top:-50px;\n";
   ptr += "            }\n";
-  ptr += "\n";
-  ptr += "            .day #nightbg {\n";
-  ptr += "                transform: scale(40);\n";
-  ptr += "            }\n";
   ptr += "        }\n";
   ptr += "\n";
   ptr += "        .day .star {\n";
@@ -1293,9 +1292,11 @@ String getHTML(){
   ptr += "\n";
   ptr += "\n";
   ptr += "            if (lightOn) {\n";
+  ptr += "                document.body.style.backgroundColor = 'lightblue';\n";
   ptr += "                toggleLightButton.classList.add('sun');\n";
   ptr += "                toggleLightButton.classList.remove('moon');\n";
   ptr += "            } else {\n";
+  ptr += "                document.body.style.backgroundColor = '#151843';\n";
   ptr += "                toggleLightButton.classList.add('moon');\n";
   ptr += "                toggleLightButton.classList.remove('sun');\n";
   ptr += "            }\n";
