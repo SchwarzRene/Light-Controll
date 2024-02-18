@@ -22,39 +22,58 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             margin: auto;
             padding: 17px;
-            width: 50%;
+
             height: 80vh;
             margin: 0 auto;
         }
 
-        @media ( max-width: 2000px ){
+        @media ( min-width: 1000px ){
             .container{
                 position: relative;
                 left: -20%;
+                width: 50%;
             }
-            
         }
 
-        @media ( max-width: 500px ) {
-            
+        @media ( max-width: 1000px ){
+            .container{
+                width: 80%;
+            }
         }
 
-        @media ( max-width: 2000px ){
-            
-        } 
-        .slider-container {
+        @media ( max-width: 1000px ) {
+            .slider-container {
+                margin: 30px 0;
+                top: 20vh;
+                height: 20vh;
+            }
+
+            .slider {
+                position: absolute;
+                top: 20vh;
+                width: 70%;
+                height: 20vh;
+                left: 15%;
+            }
+        }
+
+        @media ( min-width: 1000px ){
+            .slider-container {
                 margin: 30px 0;
                 top: -10vh;
                 height: 20vh;
             }
 
-        .slider {
-            position: absolute;
-            top: 41vh;
-            width: 70%;
-            height: 20vh;
-            left: 15%;
-        }
+            .slider {
+                position: absolute;
+                top: 41vh;
+                width: 70%;
+                height: 20vh;
+                left: 15%;
+            }
+        } 
+
+        
 
         .slider::-webkit-slider-thumb{
             width: 10vw;
@@ -65,33 +84,61 @@
             border-radius: 10%; 
         }
 
-        #night-mode {
-            position: absolute;
-            top: 46vh;
-            left: 1vw;
-            
-        }
-
+        
         .state-buttons{
             width: 10vh;
             height: 10vh;
-            font-size: 6vh;
+            
             border-radius: 20%;
+            text-align: center;
+            margin: 0;
         }
 
-        @media ( max-width: 2000px ){
+        @media ( max-width: 1000px ){
+            .state-buttons{
+                font-size: 3vh;
+                position: absolute;
+                top: 40vh;
+            }
+
+            #night-mode{
+                left: 15vw;
+            }
+
+            #reset-on-off{
+                left: 40vw;
+            }
+
+            #color-change {
+                right: 15vw;
+            }
+        }
+
+        @media ( min-width: 1000px ){
+            .state-buttons{
+                font-size: 6vh;
+            }
+
             #reset-on-off{
                 position: absolute;
                 top: 5vh;
                 left: 6vw;
             }
+
+            #color-change{
+                position: absolute;
+                top: 46vh;
+                left: 45vw;
+            }
+
+            #night-mode {
+                position: absolute;
+                top: 46vh;
+                left: 1vw;
+            }
         }
 
-        #color-change{
-            position: absolute;
-            top: 46vh;
-            left: 45vw;
-        }
+        
 
 
         .timer-controls {
@@ -111,13 +158,16 @@
             padding: 10px;
         }
 
-        @media ( max-width: 500px ){
+        @media ( max-width: 1000px ){
             .timer-list {
-                position: relative;
+                position: absolute;
+                top: 75%;
+                left: 10%;
+                right: 10%;
             }
         } 
 
-        @media ( max-width: 2000px ){
+        @media ( min-width: 1000px ){
             .timer-list {
                 position: absolute;
                 width: 40%;
@@ -126,7 +176,6 @@
             }
         } 
         
-
         .timer-item {
             align-items: center;
             border-bottom: 1px solid #ecf0f1;
@@ -138,7 +187,7 @@
             border-bottom: none;
         }
 
-        @media ( max-width: 500px ){
+        @media ( max-width: 1000px ){
             .futuristic-input, .futuristic-select {
             position: absolute;
             background-color: #34495e;
@@ -147,27 +196,26 @@
             color: white;
             font-size: 60px;
             padding: 0;
-            width: 30%;
+            width: 25%;
+            top: 55vh;
             }
 
             .futuristic-input{
-                left: 30%;
-                top: 50vh;
+                left: 12%;
                 height: 10%;
             }
 
             .futuristic-select{
-                left: 30%;
-                top: 58.75vh;
+                left: 38.5%;
                 height: 10%;
             }
 
             #addTimer{
                 position: absolute;
-                top: 50vh;
-                left: 52%; 
+                right: 12%; 
+                top: 55vh;
                 width: 20%; 
-                height: 20%; 
+                height: 10%; 
                 margin: 0; 
                 padding: 0; 
                 border: 1px solid white; 
@@ -177,7 +225,7 @@
             }
         }
 
-        @media ( max-width: 2000px ){
+        @media ( min-width: 1000px ){
             .futuristic-input, .futuristic-select {
             position: absolute;
             background-color: #34495e;
@@ -187,26 +235,25 @@
             font-size: 60px;
             width: 25%;
             padding: 0;
+            top: 65vh;
             }
 
             .futuristic-input{
                 left: 5%;
-                top: 65vh;
                 height: 10%;
             }
 
             .futuristic-select{
                 left: 37%;
-                top: 65vh;
                 height: 10%;
             }
 
             #addTimer{
                 position: absolute;
-                top: 65vh;
                 left: 70%; 
                 width: 24%; 
                 height: 10%; 
+                top: 65vh;
                 margin: 0; 
                 padding: 0; 
                 border: 1px solid white; 
@@ -694,6 +741,15 @@
         top:6%;
         }
 
+        #standby{
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            z-index: -999;
+        }
+
     </style>
 </head>
 <body>
@@ -735,7 +791,6 @@
                 
             </div>
         </div>
-        
     </div>
 
     <button id = "reset-on-off" class = "state-buttons">🔄</button>
@@ -744,8 +799,11 @@
         <h2>Set Timers</h2>
     </div>
 
+    <div id = "standby"></div>
+
     <script>
         const espIp = "http://192.168.1.200:80/"
+        const MAXTIMEOUT = 120;
         let lightOn = false;
         const lightStatus = document.getElementById('lightStatus');
         const toggleLightButton = document.getElementById('button');
@@ -761,10 +819,10 @@
 
         var currentBrightValue = 0;
         var toSetBrightValue = 0;
+        var changeBrightness = false;
 
-        function checkStates(){
-            setTimeout(() => {
-                fetch( espIp + "getstates" ).then( response => response.text() ).then( body => { 
+        function updateStates(){
+            fetch( espIp + "getstates" ).then( response => response.text() ).then( body => { 
                     let splitted = body.split( "|" );
 
                     //set the light state to the correct value
@@ -780,15 +838,108 @@
                     
                     currentBrightValue = brightness;
                     brightnessSlider.value = brightness;
-
+                    
+                    if ( lightOn ){
+                        removeStandBy();
+                    }
+                    
                     updateLightStatus();
                     updateBrightness();
-                   
+
+                    var timerTimes = splitted[ 2 ].split( " " );
+                    var timerStates = splitted[ 3 ].split( " " );
+
+                    for ( let i = 0; i < 10; i = i + 1 ){
+                        time = timerTimes[ i ];
+                        let timerEntry = document.getElementById( "timerId-" + i.toString() );
+                        
+                        if ( timerEntry != null ){
+                            if ( time == 30 ){
+                                const index = timers.findIndex(t => t.timerId === i);
+                                if (index !== -1) {
+                                    timers.splice(index, 1);
+                                }
+                                timerEntry.remove();
+
+                            } else {
+                                let displayTime = time.toString();
+                                let splittedDisplayTime = displayTime.split( "." );
+                                let hours = splittedDisplayTime[ 0 ];
+                                let minutes = splittedDisplayTime[ 1 ];
+
+                                //convert time as decimal back to hours and minutes
+                                minutes = "0." + minutes;
+                                minutes = parseFloat( minutes ) * 60;
+                                minutes = minutes.toFixed( 0 );
+
+                                //convert minutes back to string to fill up the values to get 00:00 and not 0:0
+                                minutes = minutes.toString();
+                                if ( minutes.length == 1 ){
+                                    minutes = "0" + minutes;
+                                }
+                                
+                                if ( hours.length == 1 ){
+                                    hours = "0" + hours;
+                                }
+                                time = hours + ":" + minutes;
+
+                                let action;
+                                if ( timerStates[ i ] == 1 ){
+                                    action = "ON";
+                                } else {
+                                    action = "OFF";
+                                }
+
+                                let newInnerHTML = `
+                                    Timer set for ${time} to ${action}
+                                    <button class="delete-timer" onclick="deleteTimer(${i}, this)">X</button>
+                                `;
+
+                                if ( timerEntry.innerHTML != newInnerHTML ){
+                                    timerEntry.innerHTML = newInnerHTML;
+                                }
+                            }
+
+                        } else if ( time != 30 ){
+                            let displayTime = time.toString();
+                            let splittedDisplayTime = displayTime.split( "." );
+                            let hours = splittedDisplayTime[ 0 ];
+                            let minutes = splittedDisplayTime[ 1 ];
+
+                            minutes = "0." + minutes;
+                            minutes = parseFloat( minutes ) * 60;
+                            minutes = minutes.toFixed( 0 );
+
+                            minutes = minutes.toString();
+                            if ( minutes.length == 1 ){
+                                minutes = "0" + minutes;
+                            }
+                            
+                            if ( hours.length == 1 ){
+                                hours = "0" + hours;
+                            }
+
+                            let action;
+                            if ( timerStates[ i ] == 1 ){
+                                action = "ON";
+                            } else {
+                                action = "OFF";
+                            }
+
+                            displayTimer(hours + ":" + minutes, action, i);
+                        }
+                    }
                 })
-                
-                checkStates();
-            }, 1000 );
         }
+
+        function checkStates(){
+            setTimeout(() => {
+                updateStates();
+                checkStates();
+            }, 5000 );
+        }
+        
+        updateStates();
         checkStates();
 
 
@@ -803,7 +954,9 @@
 
         brightnessSlider.oninput = function() {
             if (lightOn) {
+                console.log( "set brightness to ", this.value );
                 toSetBrightValue = this.value;
+                changeBrightness = true;
             }
         };
 
@@ -813,10 +966,15 @@
             if (time) {
                 setTimer(time, action);
             }
+            updateStates();
         };
 
         nightmodeButton.onclick = function() {
             fetch( espIp + "nightmode" );
+            toSetBrightValue = 0;
+            changeBrightness = false;
+            currentBrightValue = 0;
+            brightnessSlider.value = 0;
         }
 
         colorChangeButton.onclick = function(){
@@ -825,6 +983,9 @@
 
         resetButton.onclick = function(){
             fetch( espIp + "resetOnOffState" );
+
+            setTimeout(() => {updateStates();}, 100 );
+            
         }
 
         function updateLightStatus() {
@@ -848,80 +1009,31 @@
         }
 
         function updateBrightness() {
-            if ( toSetBrightValue > currentBrightValue ){
-                console.log( "brighten" );
+            if ( toSetBrightValue > currentBrightValue && changeBrightness == true ){
                 fetch( espIp + "brighten", { mode: 'no-cors' } );
-            } else if ( toSetBrightValue < currentBrightValue ){
+            } else if ( toSetBrightValue < currentBrightValue && changeBrightness == true ){
                 fetch( espIp + "dim", { mode: 'no-cors' } ); 
-                console.log( "dim" );
+            } else {
+                changeBrightness = false;
             }
         }
 
         function setTimer(time, action) {
             const [hours, minutes] = time.split(':');
-            const now = new Date();
-            const timerDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), parseInt(hours), parseInt(minutes));
+
+            var url;
+            action = action.toUpperCase();
+            if ( action == "ON" ){
+                url = "timer/hour/" + hours + "/minute/" + minutes + "/state/true";
+            } else {
+                url = "timer/hour/" + hours + "/minute/" + minutes + "/state/false";
+            }
+
+            fetch( espIp + url ).then( response => response.text() ).then( body => {
+                timerId = parseInt( body );
+                displayTimer( hours + ":" + minutes, action, timerId);
+            });
             
-            if (timerDate < now) {
-                timerDate.setDate(timerDate.getDate() + 1);
-            }
-            
-            const delay = timerDate.getTime() - now.getTime();
-            const timerId = setTimeout(() => {
-                lightOn = action === 'on';
-                updateLightStatus();
-                removeTimerFromList(timerId);
-            }, delay);
-
-            timers.push({ timerId, time, action });
-            displayTimer(time, action, timerId);
-        }
-
-        function getTime( text ){
-            let splitted = text.split( " " );
-            for ( const element in splitted ){
-                if ( splitted[ element ].includes( ":" ) && splitted[ element ].length == 5 ){
-                    var time = splitted[ element ];
-                }
-            }
-            return time;
-        }
-
-        function getTimeDiffToNow( time ){
-            var currentDate = new Date();
-            var hours = currentDate.getHours();
-            var minutes = currentDate.getMinutes();
-
-            var hoursT = parseInt( time.split( ":" )[ 0 ] );
-            var minutesT = parseInt( time.split( ":" )[ 1 ] );
-            
-            if ( minutesT < minutes ){
-                minutesT = minutesT + 60;
-                hoursT = hoursT - 1;
-            }
-            return parseFloat( hoursT - hours ) + parseFloat( minutesT - minutes ) / 60;
-        }
-
-        function sortTimer(){
-            let lastTimer = timerList.children[ timerList.children.length - 1 ].textContent;
-            lastTimer = getTime( lastTimer );
-
-            var mainTimeDiff = getTimeDiffToNow( lastTimer );
-
-            for ( const t in timerList.children ){
-                if ( t > 0 ){
-                    let Timet = timerList.children[ t ].textContent;
-                    Timet = getTime( Timet );
-                    let diff = getTimeDiffToNow( Timet );
-
-                    if ( mainTimeDiff < diff ){
-                        let currentPos = timerList.children[ timerList.children.length - 1 ].style.position.top;
-                        timerList.children[ timerList.children.length - 1 ].style.position.top = timerList.children[ t ].style.position.top;
-                        timerList.children[ t ].style.position.top = currentPos;
-                    }
-                }
-
-            }
         }
 
         function displayTimer(time, action, timerId) {
@@ -931,29 +1043,66 @@
                 Timer set for ${time} to ${action.toUpperCase()}
                 <button class="delete-timer" onclick="deleteTimer(${timerId}, this)">X</button>
             `;
+            timerElement.id = "timerId-" + timerId.toString();
             timerElement.dataset.timerId = timerId;
             timerList.appendChild(timerElement);
-
-            sortTimer();
         }
 
         function deleteTimer(timerId, element) {
-            clearTimeout(timerId);
             const index = timers.findIndex(t => t.timerId === timerId);
             if (index !== -1) {
                 timers.splice(index, 1);
             }
             element.parentElement.remove();
-        }
 
-        function removeTimerFromList(timerId) {
-            const timerElement = timerList.querySelector(`[data-timer-id="${timerId}"]`);
-            if (timerElement) {
-                timerElement.remove();
-            }
+            fetch( espIp + "deleteTimer/timerId/" + timerId );
         }
 
         updateLightStatus(); // Initialize status on page load
+
+        var timeoutTimer = 0;
+
+        function sec(){
+            setTimeout( () => {
+                if ( !lightOn ){
+                    timeoutTimer = timeoutTimer + 1;
+                }
+            
+                if ( timeoutTimer > MAXTIMEOUT && !lightOn ){
+                    const standby = document.getElementById( "standby" );
+                    standby.style.zIndex = "999";
+                    standby.style.backgroundColor = "black";
+                }
+
+                sec();
+            }, 1000 );
+        }
+
+        function removeStandBy(){
+            const standby = document.getElementById( "standby" );
+            standby.style.zIndex = "-999";
+            standby.style.backgroundColor = "";
+        }
+
+        //Standby Modus
+        function checkTimeout(){
+            if ( timeoutTimer > MAXTIMEOUT ){
+                removeStandBy();
+                toggleLight();
+            }
+            timeoutTimer = 0;
+        }
+        
+        window.onclick = () => {
+            checkTimeout();
+        }
+
+        window.ontouchstart = () => {
+            checkTimeout();
+        }
+
+        sec();
+
     </script>
 </body>
 </html>
