@@ -1229,6 +1229,7 @@ String getHTML(){
   ptr += "                checkStates();\n";
   ptr += "            }, 5000 );\n";
   ptr += "        }\n";
+  ptr += "        \n";
   ptr += "        updateStates();\n";
   ptr += "        checkStates();\n";
   ptr += "\n";
@@ -1362,6 +1363,17 @@ String getHTML(){
   ptr += "                    const standby = document.getElementById( 'standby' );\n";
   ptr += "                    standby.style.zIndex = '999';\n";
   ptr += "                    standby.style.backgroundColor = 'black';\n";
+  ptr += "\n";
+  ptr += "                    lightStatus.disabled = true;\n";
+  ptr += "                    toggleLightButton.disabled = true; \n";
+  ptr += "                    brightnessSlider.disabled = true; \n";
+  ptr += "                    timerInput.disabled = true; \n";
+  ptr += "                    timerAction.disabled = true; \n";
+  ptr += "                    addTimerButton.disabled = true; \n";
+  ptr += "                    timerList.disabled = true;\n";
+  ptr += "                    nightmodeButton.disabled = true;\n";
+  ptr += "                    colorChangeButton.disabled = true; \n";
+  ptr += "                    resetButton.disabled = true; \n";
   ptr += "                }\n";
   ptr += "\n";
   ptr += "                sec();\n";
@@ -1372,6 +1384,17 @@ String getHTML(){
   ptr += "            const standby = document.getElementById( 'standby' );\n";
   ptr += "            standby.style.zIndex = '-999';\n";
   ptr += "            standby.style.backgroundColor = '';\n";
+  ptr += "\n";
+  ptr += "            lightStatus.disabled = false;\n";
+  ptr += "            toggleLightButton.disabled = false; \n";
+  ptr += "            brightnessSlider.disabled = false; \n";
+  ptr += "            timerInput.disabled = false; \n";
+  ptr += "            timerAction.disabled = false; \n";
+  ptr += "            addTimerButton.disabled = false; \n";
+  ptr += "            timerList.disabled = false;\n";
+  ptr += "            nightmodeButton.disabled = false;\n";
+  ptr += "            colorChangeButton.disabled = false; \n";
+  ptr += "            resetButton.disabled = false; \n";
   ptr += "        }\n";
   ptr += "\n";
   ptr += "        //Standby Modus\n";
@@ -1396,5 +1419,6 @@ String getHTML(){
   ptr += "    </script>\n";
   ptr += "</body>\n";
   ptr += "</html>\n";
+
   return ptr;
 }

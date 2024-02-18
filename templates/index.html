@@ -1072,6 +1072,17 @@
                     const standby = document.getElementById( "standby" );
                     standby.style.zIndex = "999";
                     standby.style.backgroundColor = "black";
+
+                    lightStatus.disabled = true;
+                    toggleLightButton.disabled = true; 
+                    brightnessSlider.disabled = true; 
+                    timerInput.disabled = true; 
+                    timerAction.disabled = true; 
+                    addTimerButton.disabled = true; 
+                    timerList.disabled = true;
+                    nightmodeButton.disabled = true;
+                    colorChangeButton.disabled = true; 
+                    resetButton.disabled = true; 
                 }
 
                 sec();
@@ -1082,6 +1093,17 @@
             const standby = document.getElementById( "standby" );
             standby.style.zIndex = "-999";
             standby.style.backgroundColor = "";
+
+            lightStatus.disabled = false;
+            toggleLightButton.disabled = false; 
+            brightnessSlider.disabled = false; 
+            timerInput.disabled = false; 
+            timerAction.disabled = false; 
+            addTimerButton.disabled = false; 
+            timerList.disabled = false;
+            nightmodeButton.disabled = false;
+            colorChangeButton.disabled = false; 
+            resetButton.disabled = false; 
         }
 
         //Standby Modus
