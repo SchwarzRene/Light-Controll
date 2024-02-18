@@ -674,31 +674,34 @@
         width: 75px;
         }
 
-        #nightbg {
-        background-color: lightblue;
-        width:100px;
-        height:100px;
-        position:absolute;
-        top: 100px;
-        left: calc(50% - 50px);
-        border-radius:50%;
-        transition:0.7s;
-        z-index: -10;
-        }
 
-        #nightbg:before {
-        content:"";
-        width:200px;
-        height:200px;
-        border-radius:50%;
-        background-color:rgba(173, 216, 230, 0.1);
-        position:absolute;
-        left:-50px;
-        top:-50px;
-        }
+        @media (min-width: 1000px ){
+            #nightbg {
+            background-color: lightblue;
+            width:100px;
+            height:100px;
+            position:absolute;
+            top: 100px;
+            left: calc(50% - 50px);
+            border-radius:50%;
+            transition:0.7s;
+            z-index: -10;
+            }
 
-        .day #nightbg {
-        transform: scale(100vw, 100vh);
+            #nightbg:before {
+            content:"";
+            width:200px;
+            height:200px;
+            border-radius:50%;
+            background-color:rgba(173, 216, 230, 0.1);
+            position:absolute;
+            left:-50px;
+            top:-50px;
+            }
+
+            .day #nightbg {
+                transform: scale(40);
+            }
         }
 
         .day .star {
@@ -885,7 +888,7 @@
                     if ( hours.length == 1 ){
                         hours = "0" + hours;
                     }
-                    time = hours + ":" + minutes;
+                    displayTime = hours + ":" + minutes;
 
                     //Convert the action from 0/1 to OFF/ON
                     let action;
@@ -908,7 +911,7 @@
                         //If timer got changed change the displayed on too
                         } else {
                             let newInnerHTML = `
-                                Timer set for ${time} to ${action}
+                                Timer set for ${displayTime} to ${action}
                                 <button class="delete-timer" onclick="deleteTimer(${i}, this)">X</button>
                             `;
 
@@ -919,7 +922,7 @@
 
                     //If not displayed display timer
                     } else if ( time != 30 ){
-                        displayTimer(hours + ":" + minutes, action, i);
+                        displayTimer(displayTime, action, i);
                     }
                 }
             })
