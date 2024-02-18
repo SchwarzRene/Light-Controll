@@ -810,10 +810,8 @@
         //Defining the maximum timeout until the screen gets black
         const MAXTIMEOUT = 120;
         //Defining the update ratio of the buttons
-        var updateTimeOut = 5000;
+        var updateTimeOut = 2500;
 
-        
-        const lightStatus = document.getElementById('lightStatus');
         const toggleLightButton = document.getElementById('button');
         const brightnessSlider = document.getElementById('brightnessSlider');
         const timerInput = document.getElementById('timerInput');
@@ -1086,7 +1084,6 @@
                     standby.style.zIndex = "999";
                     standby.style.backgroundColor = "black";
 
-                    lightStatus.disabled = true;
                     toggleLightButton.disabled = true; 
                     brightnessSlider.disabled = true; 
                     timerInput.disabled = true; 
@@ -1107,7 +1104,6 @@
             standby.style.zIndex = "-999";
             standby.style.backgroundColor = "";
 
-            lightStatus.disabled = false;
             toggleLightButton.disabled = false; 
             brightnessSlider.disabled = false; 
             timerInput.disabled = false; 
