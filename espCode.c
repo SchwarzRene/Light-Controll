@@ -1410,7 +1410,5 @@ String getHTML(){
   ptr += "    </script>\n";
   ptr += "</body>\n";
   ptr += "</html>\n";
-
-
   return ptr;
 }
