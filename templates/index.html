@@ -804,6 +804,7 @@
     <script>
         const espIp = "http://192.168.1.200:80/"
         const MAXTIMEOUT = 120;
+        var updateTimeOut = 5000;
         let lightOn = false;
         const lightStatus = document.getElementById('lightStatus');
         const toggleLightButton = document.getElementById('button');
@@ -936,7 +937,7 @@
             setTimeout(() => {
                 updateStates();
                 checkStates();
-            }, 5000 );
+            }, updateTimeOut );
         }
         
         updateStates();
@@ -1011,9 +1012,12 @@
         function updateBrightness() {
             if ( toSetBrightValue > currentBrightValue && changeBrightness == true ){
                 fetch( espIp + "brighten", { mode: 'no-cors' } );
+                updateTimeOut = 500;
             } else if ( toSetBrightValue < currentBrightValue && changeBrightness == true ){
                 fetch( espIp + "dim", { mode: 'no-cors' } ); 
+                updateTimeOut = 500;
             } else {
+                updateTimeOut = 5000;
                 changeBrightness = false;
             }
         }
