@@ -1101,10 +1101,8 @@ String getHTML(){
   ptr += "        //Defining the maximum timeout until the screen gets black\n";
   ptr += "        const MAXTIMEOUT = 120;\n";
   ptr += "        //Defining the update ratio of the buttons\n";
-  ptr += "        var updateTimeOut = 5000;\n";
+  ptr += "        var updateTimeOut = 2500;\n";
   ptr += "\n";
-  ptr += "        \n";
-  ptr += "        const lightStatus = document.getElementById('lightStatus');\n";
   ptr += "        const toggleLightButton = document.getElementById('button');\n";
   ptr += "        const brightnessSlider = document.getElementById('brightnessSlider');\n";
   ptr += "        const timerInput = document.getElementById('timerInput');\n";
@@ -1377,7 +1375,6 @@ String getHTML(){
   ptr += "                    standby.style.zIndex = '999';\n";
   ptr += "                    standby.style.backgroundColor = 'black';\n";
   ptr += "\n";
-  ptr += "                    lightStatus.disabled = true;\n";
   ptr += "                    toggleLightButton.disabled = true; \n";
   ptr += "                    brightnessSlider.disabled = true; \n";
   ptr += "                    timerInput.disabled = true; \n";
@@ -1398,7 +1395,6 @@ String getHTML(){
   ptr += "            standby.style.zIndex = '-999';\n";
   ptr += "            standby.style.backgroundColor = '';\n";
   ptr += "\n";
-  ptr += "            lightStatus.disabled = false;\n";
   ptr += "            toggleLightButton.disabled = false; \n";
   ptr += "            brightnessSlider.disabled = false; \n";
   ptr += "            timerInput.disabled = false; \n";
