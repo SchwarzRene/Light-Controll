@@ -674,31 +674,34 @@
         width: 75px;
         }
 
-        #nightbg {
-        background-color: lightblue;
-        width:100px;
-        height:100px;
-        position:absolute;
-        top: 100px;
-        left: calc(50% - 50px);
-        border-radius:50%;
-        transition:0.7s;
-        z-index: -10;
-        }
 
-        #nightbg:before {
-        content:"";
-        width:200px;
-        height:200px;
-        border-radius:50%;
-        background-color:rgba(173, 216, 230, 0.1);
-        position:absolute;
-        left:-50px;
-        top:-50px;
-        }
+        @media (min-width: 1000px ){
+            #nightbg {
+            background-color: lightblue;
+            width:100px;
+            height:100px;
+            position:absolute;
+            top: 100px;
+            left: calc(50% - 50px);
+            border-radius:50%;
+            transition:0.7s;
+            z-index: -10;
+            }
 
-        .day #nightbg {
-        transform: scale(100vw, 100vh);
+            #nightbg:before {
+            content:"";
+            width:200px;
+            height:200px;
+            border-radius:50%;
+            background-color:rgba(173, 216, 230, 0.1);
+            position:absolute;
+            left:-50px;
+            top:-50px;
+            }
+
+            .day #nightbg {
+                transform: scale(40);
+            }
         }
 
         .day .star {
@@ -802,9 +805,14 @@
     <div id = "standby"></div>
 
     <script>
+        //Defining the esp32 ip address in the network
         const espIp = "http://192.168.1.200:80/"
+        //Defining the maximum timeout until the screen gets black
         const MAXTIMEOUT = 120;
-        let lightOn = false;
+        //Defining the update ratio of the buttons
+        var updateTimeOut = 5000;
+
+        
         const lightStatus = document.getElementById('lightStatus');
         const toggleLightButton = document.getElementById('button');
         const brightnessSlider = document.getElementById('brightnessSlider');
@@ -815,134 +823,124 @@
         const nightmodeButton = document.getElementById( "night-mode" );
         const colorChangeButton = document.getElementById( "color-change" );
         const resetButton = document.getElementById( "reset-on-off" );
-        const timers = [];
 
+        const timers = [];
+        let lightOn = false;
         var currentBrightValue = 0;
         var toSetBrightValue = 0;
         var changeBrightness = false;
 
         function updateStates(){
+            //Get the on/off state and the brightness of the light and update the website
+            //Also update all timers
             fetch( espIp + "getstates" ).then( response => response.text() ).then( body => { 
-                    let splitted = body.split( "|" );
+                let splitted = body.split( "|" );
 
-                    //set the light state to the correct value
-                    if ( splitted[ 1 ].includes( "true" ) ){
-                        lightOn = true;
-                    } else{
-                        lightOn = false;
+                //set the light state to the correct value
+                if ( splitted[ 1 ].includes( "true" ) ){
+                    lightOn = true;
+                } else{
+                    lightOn = false;
+                }
+
+                //set the light brightness to the correct value
+                let value = splitted[ 0 ].split( ":" )[ 1 ];
+                let brightness = parseInt( value.trim() );
+                
+                currentBrightValue = brightness;
+                brightnessSlider.value = brightness;
+                
+                //If the light is switched on by another devise aktivate this device again
+                if ( lightOn ){
+                    removeStandBy();
+                }
+                
+                //Update the website
+                updateLightStatus();
+                updateBrightness();
+
+                //Timers are a list which consit of the time and the on/off action, the list can hold maximum up to 10 elements
+                var timerTimes = splitted[ 2 ].split( " " ); //Time
+                var timerStates = splitted[ 3 ].split( " " ); //On/OFF
+
+                //The timerlist is a list with time entities 
+                //Check if every entity is displayed and up to date else change the description of the timer
+                for ( let i = 0; i < 10; i = i + 1 ){
+                    time = timerTimes[ i ];
+                    let timerEntry = document.getElementById( "timerId-" + i.toString() );
+                    
+                    let displayTime = time.toString();
+                    let splittedDisplayTime = displayTime.split( "." );
+                    let hours = splittedDisplayTime[ 0 ];
+                    let minutes = splittedDisplayTime[ 1 ];
+
+                    //convert time as decimal back to hours and minutes
+                    minutes = "0." + minutes;
+                    minutes = parseFloat( minutes ) * 60;
+                    minutes = minutes.toFixed( 0 );
+
+                    //convert minutes back to string and fill up the values to get 00:00 and not 0:0
+                    minutes = minutes.toString();
+                    if ( minutes.length == 1 ){
+                        minutes = "0" + minutes;
                     }
+                    
+                    if ( hours.length == 1 ){
+                        hours = "0" + hours;
+                    }
+                    displayTime = hours + ":" + minutes;
 
-                    //set the light brightness to the correct value
-                    let value = splitted[ 0 ].split( ":" )[ 1 ];
-                    let brightness = parseInt( value.trim() );
-                    
-                    currentBrightValue = brightness;
-                    brightnessSlider.value = brightness;
-                    
-                    if ( lightOn ){
-                        removeStandBy();
+                    //Convert the action from 0/1 to OFF/ON
+                    let action;
+                    if ( timerStates[ i ] == 1 ){
+                        action = "ON";
+                    } else {
+                        action = "OFF";
                     }
                     
-                    updateLightStatus();
-                    updateBrightness();
-
-                    var timerTimes = splitted[ 2 ].split( " " );
-                    var timerStates = splitted[ 3 ].split( " " );
-
-                    for ( let i = 0; i < 10; i = i + 1 ){
-                        time = timerTimes[ i ];
-                        let timerEntry = document.getElementById( "timerId-" + i.toString() );
+                    //Check if the timer is already displayed
+                    if ( timerEntry != null ){
+                        //If timer got deleted from other device delete timer
+                        if ( time == 30 ){
+                            const index = timers.findIndex(t => t.timerId === i);
+                            if (index !== -1) {
+                                timers.splice(index, 1);
+                            }
+                            timerEntry.remove();
                         
-                        if ( timerEntry != null ){
-                            if ( time == 30 ){
-                                const index = timers.findIndex(t => t.timerId === i);
-                                if (index !== -1) {
-                                    timers.splice(index, 1);
-                                }
-                                timerEntry.remove();
+                        //If timer got changed change the displayed on too
+                        } else {
+                            let newInnerHTML = `
+                                Timer set for ${displayTime} to ${action}
+                                <button class="delete-timer" onclick="deleteTimer(${i}, this)">X</button>
+                            `;
 
-                            } else {
-                                let displayTime = time.toString();
-                                let splittedDisplayTime = displayTime.split( "." );
-                                let hours = splittedDisplayTime[ 0 ];
-                                let minutes = splittedDisplayTime[ 1 ];
-
-                                //convert time as decimal back to hours and minutes
-                                minutes = "0." + minutes;
-                                minutes = parseFloat( minutes ) * 60;
-                                minutes = minutes.toFixed( 0 );
-
-                                //convert minutes back to string to fill up the values to get 00:00 and not 0:0
-                                minutes = minutes.toString();
-                                if ( minutes.length == 1 ){
-                                    minutes = "0" + minutes;
-                                }
-                                
-                                if ( hours.length == 1 ){
-                                    hours = "0" + hours;
-                                }
-                                time = hours + ":" + minutes;
-
-                                let action;
-                                if ( timerStates[ i ] == 1 ){
-                                    action = "ON";
-                                } else {
-                                    action = "OFF";
-                                }
-
-                                let newInnerHTML = `
-                                    Timer set for ${time} to ${action}
-                                    <button class="delete-timer" onclick="deleteTimer(${i}, this)">X</button>
-                                `;
-
-                                if ( timerEntry.innerHTML != newInnerHTML ){
-                                    timerEntry.innerHTML = newInnerHTML;
-                                }
+                            if ( timerEntry.innerHTML != newInnerHTML ){
+                                timerEntry.innerHTML = newInnerHTML;
                             }
-
-                        } else if ( time != 30 ){
-                            let displayTime = time.toString();
-                            let splittedDisplayTime = displayTime.split( "." );
-                            let hours = splittedDisplayTime[ 0 ];
-                            let minutes = splittedDisplayTime[ 1 ];
-
-                            minutes = "0." + minutes;
-                            minutes = parseFloat( minutes ) * 60;
-                            minutes = minutes.toFixed( 0 );
-
-                            minutes = minutes.toString();
-                            if ( minutes.length == 1 ){
-                                minutes = "0" + minutes;
-                            }
-                            
-                            if ( hours.length == 1 ){
-                                hours = "0" + hours;
-                            }
-
-                            let action;
-                            if ( timerStates[ i ] == 1 ){
-                                action = "ON";
-                            } else {
-                                action = "OFF";
-                            }
-
-                            displayTimer(hours + ":" + minutes, action, i);
                         }
-                    }
-                })
-        }
 
+                    //If not displayed display timer
+                    } else if ( time != 30 ){
+                        displayTimer(displayTime, action, i);
+                    }
+                }
+            })
+        }
+        
+        //Check in a defined frequence the states
         function checkStates(){
             setTimeout(() => {
                 updateStates();
                 checkStates();
-            }, 5000 );
+            }, updateTimeOut );
         }
         
         updateStates();
         checkStates();
 
 
+        //Turn the light ON/OFF
         function toggleLight() {
             lightOn = !lightOn;
 
@@ -952,6 +950,7 @@
             updateLightStatus();
         }
 
+        //Change the brightness
         brightnessSlider.oninput = function() {
             if (lightOn) {
                 console.log( "set brightness to ", this.value );
@@ -960,6 +959,7 @@
             }
         };
 
+        //Add a new timer
         addTimerButton.onclick = function() {
             const time = timerInput.value;
             const action = timerAction.value;
@@ -969,6 +969,7 @@
             updateStates();
         };
 
+        //Set the light to nightmode
         nightmodeButton.onclick = function() {
             fetch( espIp + "nightmode" );
             toSetBrightValue = 0;
@@ -977,10 +978,12 @@
             brightnessSlider.value = 0;
         }
 
+        //Change the color of the light
         colorChangeButton.onclick = function(){
             fetch( espIp + "temp" );
         }
 
+        //If the light is displayed on although it is off reset the state
         resetButton.onclick = function(){
             fetch( espIp + "resetOnOffState" );
 
@@ -988,6 +991,7 @@
             
         }
 
+        //Display the sun if the light is on and the moon if the light is off
         function updateLightStatus() {
             let wrapper = document.getElementById( "wrapper" );
             
@@ -1008,16 +1012,21 @@
             brightnessSlider.disabled = !lightOn;
         }
 
+        //Update the brightness step by step
         function updateBrightness() {
             if ( toSetBrightValue > currentBrightValue && changeBrightness == true ){
-                fetch( espIp + "brighten", { mode: 'no-cors' } );
+                fetch( espIp + "brighten" );
+                updateTimeOut = 500;
             } else if ( toSetBrightValue < currentBrightValue && changeBrightness == true ){
-                fetch( espIp + "dim", { mode: 'no-cors' } ); 
+                fetch( espIp + "dim" ); 
+                updateTimeOut = 500;
             } else {
+                updateTimeOut = 5000;
                 changeBrightness = false;
             }
         }
 
+        //Send a request to the server to set a new timer
         function setTimer(time, action) {
             const [hours, minutes] = time.split(':');
 
@@ -1036,6 +1045,7 @@
             
         }
 
+        //Display a timer to the user
         function displayTimer(time, action, timerId) {
             const timerElement = document.createElement('div');
             timerElement.className = 'timer-item';
@@ -1048,6 +1058,7 @@
             timerList.appendChild(timerElement);
         }
 
+        //Delete a timer if it is not usefull
         function deleteTimer(timerId, element) {
             const index = timers.findIndex(t => t.timerId === timerId);
             if (index !== -1) {
@@ -1060,8 +1071,10 @@
 
         updateLightStatus(); // Initialize status on page load
 
+        //Standby Modus
         var timeoutTimer = 0;
 
+        //Countdown which is updated every second. if no action on the webpage happens in a defined interval the standby mode is activated
         function sec(){
             setTimeout( () => {
                 if ( !lightOn ){
@@ -1106,7 +1119,7 @@
             resetButton.disabled = false; 
         }
 
-        //Standby Modus
+        
         function checkTimeout(){
             if ( timeoutTimer > MAXTIMEOUT ){
                 removeStandBy();
